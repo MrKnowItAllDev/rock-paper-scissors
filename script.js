@@ -1,18 +1,21 @@
 'use strict';
 
+// I'm not sure why I created a function to declare these variables
+// The variables would've just been initialised in the main game function
 function getScore() {
     let playerScore = 0;
     let compScore = 0;
     return { playerScore, compScore };
 }
 
-
 function returnOptions() {
+    // Call .map() on the array
+    // The .map() function iterates through array and capitalises each element
     return [
         "Rock", 
         "Paper", 
         "Scissors"
-    ].map((e) => e.toLowerCase()); // map function is 
+    ].map((e) => e.toLowerCase());
 }
 
 
@@ -40,6 +43,7 @@ function checkMove(player, move) {
 
 
 function gameStart() {
+    // Retrieve the score variables from the getScore function
     let { playerScore, compScore } = { ...getScore() };
     let wRounds = 5;
 
