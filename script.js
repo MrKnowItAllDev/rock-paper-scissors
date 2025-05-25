@@ -10,7 +10,7 @@ function getScore() {
 
 function returnOptions() {
     // Call .map() on the array
-    // The .map() function iterates through array and capitalises each element
+    // The .map() function iterates through array and makes each element lowercase
     return [
         "Rock", 
         "Paper", 
