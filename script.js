@@ -6,9 +6,15 @@ function getScore() {
     return { playerScore, compScore };
 }
 
+
 function returnOptions() {
-    return ["Rock", "Paper", "Scissors"];
+    return [
+        "Rock", 
+        "Paper", 
+        "Scissors"
+    ].map((e) => e.toLowerCase()); // map function is 
 }
+
 
 function getComputerChoice() {
     const choices = returnOptions();
@@ -16,54 +22,53 @@ function getComputerChoice() {
     return choices[rand];
 }
 
+
 const getHumanChoice = () => {
-    const pInput = prompt("Rock, Paper or Scissors?");
+    const pInput = prompt("Rock, Paper or Scissors?").toLowerCase();
     const choices = returnOptions();
 
     if (choices.indexOf(pInput) < 0 || !pInput)
         console.log("Trash!!");
+
     return pInput;
 }
 
-function checkMove(player, move, oPlayer, Omove) {
-    return player === move && oPlayer === Omove;
+
+function checkMove(player, move) {
+    return player === move;
 }
 
-function playRound(player, comp) {
-    player = player.toLowerCase();
-    comp = comp.toLowerCase();
-    let winner;
-
-    if (checkMove(player, "rock", comp, "scissors") ||
-        checkMove(player, "paper", comp, "rock") ||
-        checkMove(player, "scissors", comp, "paper")) {
-        winner = "Player";
-    }
-
-    else if (checkMove(comp, "rock", player, "scissors") || 
-        checkMove(comp, "paper", player, "rock") ||
-        checkMove(comp, "scissors", player, "paper")) {
-        winner = "Computer";
-    }
-    return winner;
-}
 
 function gameStart() {
     let { playerScore, compScore } = { ...getScore() };
-    const wRounds = 5;
-    
+    let wRounds = 5;
+
+    function playRound(player, comp) {
+        if (checkMove(player, "rock") && checkMove(comp, "scissors") ||
+            checkMove(player, "paper") && checkMove(comp, "rock") ||
+            checkMove(player, "scissors") && checkMove(comp, "paper")) {
+                playerScore++;
+                console.log(`You win, ${player} beats ${comp}!!`);
+        } else if (
+            checkMove(comp, "rock") && checkMove(player, "scissors") || 
+            checkMove(comp, "paper") && checkMove(player, "rock") ||
+            checkMove(comp, "scissors") && checkMove(player, "paper")) {
+                compScore++;
+                console.log(`You lose, ${comp} beats ${player}`);
+        }
+        else { 
+            console.log(`Tie: ${player} ${comp}`); 
+        }
+    }
+
     while (playerScore < wRounds && compScore < wRounds) {
         let player = getHumanChoice();
         let comp = getComputerChoice();
-        
+
         playRound(player, comp);
-
-        if (playRound(player, comp) == "Player") ++playerScore;
-        else if (playRound(player, comp) == "Computer") ++compScore;
-        else console.log(player, comp);
-
-        console.log(`Player: ${playerScore}, Computer: ${compScore}`);
     }
+    if (playerScore > compScore) console.log("You Win!!");
+    else console.log("You Lose!!");
 }
 
 gameStart();
