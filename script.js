@@ -1,17 +1,6 @@
 'use strict';
 
-// I'm not sure why I created a function to declare these variables
-// The variables would've just been initialised in the main game function
-const getScore = () => {
-    let playerScore = 0;
-    let compScore = 0;
-    return { playerScore, compScore };
-}
-
-const returnOptions = () => {
-    // The .map() function iterates through array and makes each element lowercase
-    return ["Rock", "Paper", "Scissors"].map((e) => e.toLowerCase());
-}
+const returnOptions = () => ["Rock", "Paper", "Scissors"].map((e) => e.toLowerCase());
 
 const getComputerChoice = () => {
     const choices = returnOptions();
@@ -22,43 +11,29 @@ const getComputerChoice = () => {
 const getHumanChoice = () => {
     const pInput = prompt("Rock, Paper or Scissors?").toLowerCase();
     const choices = returnOptions();
-
-    if (choices.indexOf(pInput) < 0 || !pInput)
-        console.log("Trash!!");
+    if (choices.indexOf(pInput) < 0 || !pInput) console.log("Trash!!");
     return pInput;
 }
 
-const checkMove = (player, move) => {
-    return player === move;
-}
+const checkMove = (player, move, oPlayer, oMove) => player === move && oPlayer === oMove;
 
-const gameStart = () => {
-    // Retrieve the score variables from the getScore function
-    let { playerScore, compScore } = { ...getScore() };
+function gameStart() {
+    let [ playerScore, compScore ] = [ 0, 0 ];
     let wRounds = 5;
 
     function playRound(player, comp) {
-        if (checkMove(player, "rock") && checkMove(comp, "scissors") ||
-            checkMove(player, "paper") && checkMove(comp, "rock") ||
-            checkMove(player, "scissors") && checkMove(comp, "paper")) {
+        if (player === comp) console.log(`Tie: ${player} : ${comp}`); 
+        else if (checkMove(player, "rock", comp, "scissors") || checkMove(player, "paper", comp, "rock") || checkMove(player, "scissors", comp, "paper")) {
                 playerScore++;
                 console.log(`You win, ${player} beats ${comp}!!`);
-        } 
-        
-        else if (checkMove(comp, "rock") && checkMove(player, "scissors") || 
-                checkMove(comp, "paper") && checkMove(player, "rock") || 
-                checkMove(comp, "scissors") && checkMove(player, "paper")) {
+        } else if (checkMove(comp, "rock", player, "scissors") || checkMove(comp, "paper", player, "rock") || checkMove(comp, "scissors", player, "paper")) {
                 compScore++;
                 console.log(`You lose, ${comp} beats ${player}`);
-        }
-        else { 
-            console.log(`Tie: ${player} ${comp}`); 
-        }
+        } 
     }
 
     while (playerScore < wRounds && compScore < wRounds) {
-        let player = getHumanChoice();
-        let comp = getComputerChoice();
+        let [player , comp] = [getHumanChoice(), getComputerChoice()];
         playRound(player, comp);
     }
     if (playerScore > compScore) console.log("You Win!!");
