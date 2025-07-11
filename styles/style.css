@@ -1,4 +1,17 @@
 /* Add custom fonts */
+@font-face {
+
+}
+
+/* Variables */
+
+:root {
+    --dark-background: #251b3b;
+    --btn-background: #3c2f5a;
+    --player-highlight: #0aad02;;
+    --comp-highlight: #a70c01;
+    --font-color: #ffffff;
+}
 
 /* Global styling */
 
@@ -6,5 +19,65 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: var(--font-color);
+    font-family: 'sans-serif', 'Montserrat', 'Poppins', 'Arial Rounded MT Bold';
 }
 
+/* Layout */
+
+svg {
+    cursor: pointer;
+
+}
+
+/* Paper hand animation */
+@keyframes wave {
+    10% {
+        rotate: -20deg;
+        transform: translate(5%) skewX(10deg);
+    }
+    50% {
+        rotate: 20deg;
+        transform: translate(-5%) skewX(-15deg);
+    }
+    80% {
+        rotate: -10deg;
+        transform: translate(2%);
+    }
+}
+
+svg:hover {
+    animation: wave 900ms ease-in;
+
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dark-background);
+    align-items: center;
+    height: 100vh;
+}
+
+/* Buttons */
+
+button {
+    background-color: var(--btn-background);
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    border: 2px solid var(--player-highlight);
+}
+
+/* Effects */
+
+.p-highlight {
+    box-shadow: 5px 5px 5px var(--player-highlight);
+}
+
+.c-highlight {
+    border: 2px solid var(--comp-highlight);
+}
