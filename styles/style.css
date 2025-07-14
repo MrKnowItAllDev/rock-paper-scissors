@@ -1,6 +1,7 @@
 /* Add custom fonts */
 @font-face {
-
+    font-family: custom;
+    src: url("https://www.example.com");
 }
 
 /* Variables */
@@ -24,13 +25,21 @@
 }
 
 /* Layout */
+.header h1 {
+    font-weight: bold;
+    font-size: 64px;
+    text-align: center;
+}
+
+.get-rekt {
+    padding: 24px;
+}
 
 svg {
     cursor: pointer;
-
 }
 
-/* Paper hand animation */
+/* Icon animation */
 @keyframes wave {
     10% {
         rotate: -20deg;
@@ -48,7 +57,6 @@ svg {
 
 svg:hover {
     animation: wave 900ms ease-in;
-
 }
 
 .container {
@@ -56,7 +64,29 @@ svg:hover {
     flex-direction: column;
     background-color: var(--dark-background);
     align-items: center;
+    justify-content: center;
     height: 100vh;
+}
+
+.scores {
+    display: flex;
+    padding: 42px 0;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.track-player,
+.track-computer {
+    background-color: var(--btn-background);
+    padding: 24px;
+    border-radius: 4px;
+    flex: 1;
+}
+
+.final {
+    text-align: center;
+    padding: 42px;
 }
 
 /* Buttons */
